@@ -134,7 +134,7 @@ namespace BgmExamples
         internal static IResourceSource embeddedSource = new EmbeddedSource(Assembly.GetExecutingAssembly());
 
         // add this for audio loading
-        internal static DirectorySource directorySource = new DirectorySource(PInfo.GUID, "");
+        internal static DirectorySource directorySource =  new DirectorySource(PInfo.GUID, "");
 
 
         private void Awake()
@@ -151,6 +151,8 @@ namespace BgmExamples
 
             if (BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey(AddWatermark.API.GUID))
                 WatermarkWrapper.ActivateWatermark();
+
+
         }
 
         private void OnDestroy()
@@ -158,6 +160,7 @@ namespace BgmExamples
             if (harmony != null)
                 harmony.UnpatchSelf();
         }
+
 
 
     }
