@@ -308,6 +308,16 @@
 
 
     <ItemGroup>
+      <None Remove="Resources\hell2.ogg" />
+    </ItemGroup>
+
+
+    <ItemGroup>
+      <EmbeddedResource Include="DirResources\hell.ogg" />
+    </ItemGroup>
+
+
+    <ItemGroup>
       <Folder Include="Resources\" />
     </ItemGroup>
 

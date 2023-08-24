@@ -149,6 +149,7 @@ namespace BgmExamples
 
             harmony.PatchAll();
 
+
             if (BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey(AddWatermark.API.GUID))
                 WatermarkWrapper.ActivateWatermark();
 

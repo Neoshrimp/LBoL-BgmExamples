@@ -2,6 +2,7 @@
 using HarmonyLib;
 using LBoL.ConfigData;
 using LBoL.Core.Cards;
+using LBoL.Core.Stations;
 using LBoL.EntityLib.EnemyUnits.Character;
 using LBoL.Presentation;
 using LBoLEntitySideloader;
@@ -10,6 +11,8 @@ using LBoLEntitySideloader.Entities;
 using LBoLEntitySideloader.Resource;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net;
 using System.Reflection.Emit;
 using System.Text;
 using UnityEngine;
@@ -131,5 +134,82 @@ namespace BgmExamples
 
 
         }
+
+
+
+
+
+
+
+
+
+
+        public sealed class RinBgm : BgmTemplate
+        {
+            public override IdContainer GetId()
+            {
+                return "RinHellBgm";
+            }
+
+            public override UniTask<AudioClip> LoadAudioClipAsync()
+            {
+                return ResourceLoader.LoadAudioClip("hell.ogg", AudioType.OGGVORBIS, directorySource);
+
+            }
+
+            public override BgmConfig MakeConfig()
+            {
+                var config = new BgmConfig(
+                        ID: "",
+                        No: 0,
+                        Show: true,
+                        Name: "",
+                        Folder: "",
+                        Path: "",
+                        LoopStart: null,
+                        LoopEnd: null,
+                        TrackName: "<Lullaby of Deserted Hell>",
+                        Artist: "ZUN",
+                        Original: "",
+                        Comment: ""
+                );
+
+                return config;
+            }
+
+
+
+            [HarmonyPatch(typeof(AudioManager), nameof(AudioManager.PlayEliteBgm))]
+            class AudioManager_Patch
+            {
+
+                static bool Prefix()
+                {
+
+                    if (GameMaster.Instance?.CurrentGameRun?.CurrentStation is BattleStation bs)
+                    {
+                        if (bs.EnemyGroup.Alives.Any(e => e.Id == nameof(Rin)))
+                        { 
+                            AudioManager.PlayInLayer1((new RinBgm()).UniqueId);
+                            return false;
+                        
+                        }
+                    }
+                    return true;
+
+                }
+            }
+
+
+
+
+
+        }
     }
+
+
+
+
+
 }
+
