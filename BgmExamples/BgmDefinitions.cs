@@ -70,6 +70,7 @@ namespace BgmExamples
                 config.TrackName = "恋色Magic";
                 config.LoopStart = null;
                 config.LoopEnd = null;
+                config.Comment = "deeznuts";
                 return config;
             }
 
