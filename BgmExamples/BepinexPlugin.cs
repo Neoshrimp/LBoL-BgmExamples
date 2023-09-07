@@ -102,6 +102,7 @@ using LBoL.Presentation.UI.Widgets;
 using LBoL.Presentation.Units;
 using LBoLEntitySideloader;
 using LBoLEntitySideloader.Resource;
+using LBoLEntitySideloader.TemplateGen;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -136,6 +137,12 @@ namespace BgmExamples
         // add this for audio loading
         internal static DirectorySource directorySource =  new DirectorySource(PInfo.GUID, "");
 
+        internal static DirectorySource sfxDir = new DirectorySource(PInfo.GUID, "sfx");
+
+
+        internal static SfxGen sfxGen = new SfxGen();
+
+        internal static UiSoundGen uiSoundGen = new UiSoundGen();
 
         private void Awake()
         {
@@ -152,6 +159,9 @@ namespace BgmExamples
 
             if (BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey(AddWatermark.API.GUID))
                 WatermarkWrapper.ActivateWatermark();
+
+
+            Generation.InnitGen();
 
 
         }
