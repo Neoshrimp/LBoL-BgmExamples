@@ -200,12 +200,28 @@ namespace BgmExamples
 
                 }
             }
-
-
-
-
-
         }
+
+        [OverwriteVanilla]
+        public sealed class BgmConfigOverwriteTest : BgmTemplate
+        {
+            public override IdContainer GetId() => "Stage1";
+
+            [DontOverwrite]
+            public override UniTask<AudioClip> LoadAudioClipAsync()
+            {
+                throw new NotImplementedException();
+            }
+
+            public override BgmConfig MakeConfig()
+            {
+                var con = BgmConfig.FromID("Stage1");
+                con.Name = "deeznuts";
+                return con;
+            }
+        }
+
+
     }
 
 
